@@ -1,8 +1,0 @@
-#
-# codecov.io Configuration
-# See the docs here: https://docs.codecov.io/docs/codecov-yaml
-#
-
-# Ingore the example app from coverage reports
-ignore:
-  - "examples/**/*"

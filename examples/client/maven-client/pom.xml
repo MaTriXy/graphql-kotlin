@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.expediagroup</groupId>
+    <artifactId>graphql-kotlin-maven-client-example</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <!-- all properties will be set by gradle at runtime -->
+        <graphql-kotlin.version>${graphqlKotlinVersion}</graphql-kotlin.version>
+        <!-- lib versions -->
+        <kotlin.jvmTarget>${kotlinJvmTarget}</kotlin.jvmTarget>
+        <kotlin.version>${kotlinVersion}</kotlin.version>
+        <kotlin-coroutines.version>${kotlinxCoroutinesVersion}</kotlin-coroutines.version>
+        <reactor.version>${reactorVersion}</reactor.version>
+
+        <!-- environment settings -->
+        <graphql.endpoint>${graphqlEndpoint}</graphql.endpoint>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.expediagroup</groupId>
+            <artifactId>graphql-kotlin-spring-client</artifactId>
+            <version>${graphql-kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>${reactor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>69.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <configuration>
+                    <jvmTarget>${kotlin.jvmTarget}</jvmTarget>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.expediagroup</groupId>
+                <artifactId>graphql-kotlin-maven-plugin</artifactId>
+                <version>${graphql-kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>download-sdl</goal>
+                            <goal>generate-client</goal>
+                        </goals>
+                        <configuration>
+                            <endpoint>${graphql.endpoint}</endpoint>
+                            <packageName>com.expediagroup.graphql.generated</packageName>
+                            <schemaFile>${project.build.directory}/schema.graphql</schemaFile>
+                            <allowDeprecatedFields>true</allowDeprecatedFields>
+                            <headers>
+                                <X-Custom-Header>My-Custom-Header</X-Custom-Header>
+                            </headers>
+                            <customScalars>
+                                <customScalar>
+                                    <!-- custom scalar UUID type -->
+                                    <scalar>UUID</scalar>
+                                    <!-- fully qualified Java class name of a custom scalar type -->
+                                    <type>java.util.UUID</type>
+                                    <!-- fully qualified Java class name of a custom com.expediagroup.graphql.client.converter.ScalarConverter
+                                       used to convert to/from raw JSON and scalar type -->
+                                    <converter>com.expediagroup.graphql.examples.client.maven.UUIDScalarConverter</converter>
+                                </customScalar>
+                                <customScalar>
+                                    <scalar>Locale</scalar>
+                                    <type>com.ibm.icu.util.ULocale</type>
+                                    <converter>com.expediagroup.graphql.examples.client.maven.ULocaleScalarConverter</converter>
+                                </customScalar>
+                                <customScalar>
+                                    <scalar>_Any</scalar>
+                                    <type>kotlin.Any</type>
+                                    <converter>com.expediagroup.graphql.examples.client.maven.AnyScalarConverter</converter>
+                                </customScalar>
+                            </customScalars>
+                            <serializer>JACKSON</serializer>
+                            <useOptionalInputWrapper>true</useOptionalInputWrapper>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- build helper plugin is required for IntelliJ IDEA to correctly identify generated sources -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>add-graphql-client-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/graphql</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <mainClass>com.expediagroup.graphql.examples.client.maven.ApplicationKt</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

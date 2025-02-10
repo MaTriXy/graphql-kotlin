@@ -1,0 +1,45 @@
+name: Build and Test Examples
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - name: Set up Gradle cache
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Set up Maven cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Build examples with Gradle
+        run: ./gradlew clean build
+
+      - name: Archive examples failure build reports
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-examples-reports
+          path: ./examples/**/build/reports
+          retention-days: 7

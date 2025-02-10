@@ -1,31 +1,48 @@
 # Federation Example
 
-This example is two Spring applications `base-app` and `extend-app` that use `graphql-kotlin-federation` to generate the schema.
-These apps run on different ports (`8080`, `8081`) so they can run simultaniously
+[Apollo Federation](https://www.apollographql.com/docs/federation/) example using GraphQL Kotlin and [Apollo Router](https://www.apollographql.com/docs/router/).
 
-Then the `gateway` is a Node.js app running Apollo Gateway on port `4000` and connects to the two spring apps.
-You can make queries against the spring apps directly or combined queries from the gateway.
+The repository contains two separate projects:
 
-## Running Locally
+1. `products-subgraph`: A Java GraphQL service providing the federated `Product` type
+2. `reviews-subgraph`: A Java GraphQL service that extends the `Product` type with `reviews`
 
+See individual projects READMEs for detailed instructions on how to run them.
 
-### Spring Apps
-Build the spring applications by running the following commands in the `/federation` directory
+## Running example locally
 
-```shell script
-mvn clean install
-``` 
+1. Start `products-subgraph` by running the Spring Boot app from the IDE or by running `gradle bootRun` from `products-subgraph` project
+2. Start `reviews-subgraph` by running the Spring Boot app from the IDE or `gradle bootRun` from `reviews-subgraph` project
+3. Start Federated Router
+    1. Install [rover CLI](https://www.apollographql.com/docs/rover/getting-started)
+    2. Start router and compose products schema using [rover dev command](https://www.apollographql.com/docs/rover/commands/dev)
 
-Start the servers:
+    ```shell
+    # start up router and compose products schema
+    rover dev --name products --url http://localhost:8080/graphql
+    ```
 
-* Run each `Application.kt` directly from your IDE
-* Alternatively you can also use the spring boot maven plugin by running `mvn spring-boot:run` from the command line.
+    3. In **another** shell run `rover dev` to compose reviews schema
 
+    ```shell
+    rover dev --name reviews --url http://localhost:8081/graphql
+    ```
 
-Once the app has started you can explore the example schema by opening Playground endpoint
-* `base-app` http://localhost:8080/playground
-* `extend-app` http://localhost:8081/playground
+4. Open http://localhost:3000 for the query editor
 
-### Gateway
+Example federated query
 
-See the instructions in the [README](/gateway/README.md) for this folder
+```graphql
+query ExampleQuery {
+    products {
+        id
+        name
+        description
+        reviews {
+            id
+            text
+            starRating
+        }
+    }
+}
+```

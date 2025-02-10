@@ -1,0 +1,45 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+      - '*.x.x'
+    paths-ignore:
+      - 'website/**'
+
+jobs:
+  build-libraries:
+    uses: ./.github/workflows/build-libraries.yml
+
+  plugin-integration:
+    needs: build-libraries
+    uses: ./.github/workflows/plugin-it.yml
+
+  build-examples:
+    needs: build-libraries
+    uses: ./.github/workflows/build-examples.yml
+
+  federation-integration:
+    needs: build-libraries
+    uses: ./.github/workflows/federation-integration.yml
+
+  http-spec-compliance:
+    needs: build-libraries
+    uses: ./.github/workflows/http-spec-compliance.yml
+    
+  graalvm-integration:
+    needs: build-libraries
+    uses: ./.github/workflows/graalvm-integration.yml
+
+  release-notes:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Release Drafter
+        uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

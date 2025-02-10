@@ -1,0 +1,23 @@
+{
+  "name": "graphql-kotlin-docs",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/ExpediaGroup/graphql-kotlin",
+  "private": true,
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9.6"
+  },
+  "scripts": {
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "version": "docusaurus docs:version",
+    "clean": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "swizzle": "docusaurus swizzle"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.5.2",
+    "@docusaurus/theme-mermaid": "^3.5.2"
+  }
+}

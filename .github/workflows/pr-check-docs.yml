@@ -1,0 +1,34 @@
+name: Pull Request Check Documentation
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'website/**'
+
+jobs:
+  check-docs:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    if: github.repository == 'ExpediaGroup/graphql-kotlin'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('website/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Build website
+        run: |
+          cd website
+          npm install
+          npm run build

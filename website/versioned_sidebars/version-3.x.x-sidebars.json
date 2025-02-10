@@ -1,0 +1,244 @@
+{
+  "docs": [
+    {
+      "type": "category",
+      "label": "Introduction",
+      "items": [
+        {
+          "type": "doc",
+          "id": "getting-started"
+        },
+        {
+          "type": "doc",
+          "id": "examples"
+        },
+        {
+          "type": "doc",
+          "id": "blogs-and-videos"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Schema Generator",
+      "items": [
+        {
+          "type": "doc",
+          "id": "schema-generator/schema-generator-getting-started"
+        },
+        {
+          "type": "category",
+          "label": "Writing schemas with Kotlin",
+          "items": [
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/nullability"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/arguments"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/scalars"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/enums"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/lists"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/interfaces"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/unions"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/annotations"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/writing-schemas/nested-arguments"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Customizing Schema",
+          "items": [
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/generator-config"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/documenting-fields"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/excluding-fields"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/renaming-fields"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/directives"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/deprecating-schema"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/customizing-schemas/advanced-features"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Execution",
+          "items": [
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/fetching-data"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/async-models"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/exceptions"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/data-fetching-environment"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/contextual-data"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/optional-undefined-arguments"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/subscriptions"
+            },
+            {
+              "type": "doc",
+              "id": "schema-generator/execution/introspection"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Federation",
+      "items": [
+        {
+          "type": "doc",
+          "id": "federated/apollo-federation"
+        },
+        {
+          "type": "doc",
+          "id": "federated/federated-schemas"
+        },
+        {
+          "type": "doc",
+          "id": "federated/federated-directives"
+        },
+        {
+          "type": "doc",
+          "id": "federated/type-resolution"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Spring Server",
+      "items": [
+        {
+          "type": "doc",
+          "id": "spring-server/spring-overview"
+        },
+        {
+          "type": "doc",
+          "id": "spring-server/spring-beans"
+        },
+        {
+          "type": "doc",
+          "id": "spring-server/spring-properties"
+        },
+        {
+          "type": "doc",
+          "id": "spring-server/spring-schema"
+        },
+        {
+          "type": "doc",
+          "id": "spring-server/spring-graphql-context"
+        },
+        {
+          "type": "doc",
+          "id": "spring-server/http-request-response"
+        },
+        {
+          "type": "doc",
+          "id": "spring-server/subscriptions"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "HTTP Client",
+      "items": [
+        {
+          "type": "doc",
+          "id": "client/client-overview"
+        },
+        {
+          "type": "doc",
+          "id": "client/client-features"
+        },
+        {
+          "type": "doc",
+          "id": "client/client-customization"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Build Plugins",
+      "items": [
+        {
+          "type": "doc",
+          "id": "plugins/gradle-plugin"
+        },
+        {
+          "type": "doc",
+          "id": "plugins/maven-plugin"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Contributors",
+      "items": [
+        {
+          "type": "doc",
+          "id": "contributors/release-proc"
+        }
+      ]
+    }
+  ]
+}

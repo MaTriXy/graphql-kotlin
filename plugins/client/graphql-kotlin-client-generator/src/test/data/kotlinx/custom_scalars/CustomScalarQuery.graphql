@@ -1,0 +1,15 @@
+query CustomScalarQuery {
+  first: scalarQuery {
+    ... scalarSelections
+  }
+  second: scalarQuery {
+    ... scalarSelections
+  }
+}
+fragment scalarSelections on ScalarWrapper {
+  id
+  custom
+  customList
+  locale
+  listLocale
+}

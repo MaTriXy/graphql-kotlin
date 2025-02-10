@@ -1,0 +1,6 @@
+translated_docs/
+build/
+node_modules/
+.docusaurus/
+i18n/
+yarn.lock

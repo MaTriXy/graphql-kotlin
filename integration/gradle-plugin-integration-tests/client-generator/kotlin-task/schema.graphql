@@ -1,0 +1,7 @@
+type Query {
+    helloWorld(name: String): String! @deprecated(reason: "this is a test schema")
+}
+
+type Mutation {
+    updateName(name: String!): String!
+}
